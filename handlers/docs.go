@@ -57,3 +57,19 @@ type registerAUserParmsWrapper struct {
 	// required: true
 	Body data.RegisterUserStructure
 }
+
+// swagger:parameters registerToBusiness
+type registerAUserToBusinessParmsWrapper struct {
+	// Data structure to register a user to a business.
+	// in: body
+	// required: true
+	Body data.RegisterUserToBusinessStruct
+}
+
+// Success message on subscribing to a business
+// swagger:response registerToBusinessPostResponse
+type accountPostResponseWrapper struct {
+	// Success message on subscribing to a business
+	// in: body
+	Body data.RegisterToBusinessPostSuccess
+}

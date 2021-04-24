@@ -10,7 +10,7 @@ type RegisterUserStructure struct{
 	//
 	// required: false
 	// max length: 1000
-	UserID string `json: "userID"`
+	UserID string `json: "-"`
 
 	// The full Name of the user
 	//
@@ -43,17 +43,47 @@ type RegisterUserStructure struct{
 	Longitude float64 `json: "longitude" validate:"required"`
 }
 
+//post request for registering a user
+type RegisterUserToBusinessStruct struct{
+	// UserID of the user 
+	//
+	// required: true
+	// max length: 1000
+	UserID string `json: "userID" validate:"required"`
+
+	// BusinessID of the business user is subscribing to
+	//
+	// required: true
+	// max length: 1000
+	BusinessID string `json: "businessID" validate:"required"`
+}
+
 //post response
 type RegisterPostSuccess struct {
 	//userID of the user
 	//
 	UserID string `json:"userID"`
-	//Message to the user
+	//Message response
+	//
+	Message string `json:"message"`
+}
+
+//post response
+type RegisterToBusinessPostSuccess struct {
+	//businessID of the business
+	//
+	BusinessID string `json:"businessID"`
+	//Message response
 	//
 	Message string `json:"message"`
 }
 
 func (d *RegisterUserStructure) ValidateRegisterUserStructure() error {
+	validate := validator.New()
+	return validate.Struct(d)
+}
+
+func (d *RegisterUserToBusinessStruct) ValidateRegisterUserToBusinessStruct() error {
 	validate := validator.New()
 	return validate.Struct(d)
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/bybrisk/input-register-api/data"
 )
 
-func TestRegisterUserCRUDOPS(t *testing.T) {
+/*func TestRegisterUserCRUDOPS(t *testing.T) {
 
 	register := &data.RegisterUserStructure{
 		UserName: "Shashank Prakash",
@@ -17,6 +17,21 @@ func TestRegisterUserCRUDOPS(t *testing.T) {
 	}
 
 	res:= data.RegisterUserCRUDOPS(register) 
+
+	fmt.Println(res)
+	if res==nil{
+		t.Fail()
+	}
+}*/
+
+func TestRegisterUserCRUDOPS(t *testing.T) {
+
+	register := &data.RegisterUserToBusinessStruct{
+		BusinessID: "606d6dd51bf7f6ed4a0b320c",
+		UserID: "6083deb86fcd474489784fee",
+	}
+
+	res:= data.RegisterUserToBusinessCRUDOPS(register) 
 
 	fmt.Println(res)
 	if res==nil{

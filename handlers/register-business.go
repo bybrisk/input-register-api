@@ -7,25 +7,25 @@ import (
 	"github.com/bybrisk/input-register-api/data"
 )
 
-// swagger:route POST /input/register/create user registerAUser
-// Register a user to input tool.
+// swagger:route POST /input/register/business user registerToBusiness
+// Subscribe a user to a business.
 //
 // responses:
-//	200: registerPostResponse
+//	200: registerToBusinessPostResponse
 //  422: errorValidation
 //  501: errorResponse
 
 func (p *Input_Register) Register_User (w http.ResponseWriter, r *http.Request){
 	p.l.Println("Handle POST request -> input-register-api Module")
-	registeration := &data.RegisterUserStructure{}
+	registeration := &data.RegisterUserToBusinessStruct{}
 
-	err:=registeration.FromJSONToRegisterUserStructure(r.Body)
+	err:=registeration.FromJSONToRegisterUserToBusinessStruct(r.Body)
 	if err!=nil {
 		http.Error(w,"Data failed to unmarshel", http.StatusBadRequest)
 	}
 
 	//validate the data
-	err = registeration.ValidateRegisterUserStructure()
+	err = registeration.ValidateRegisterUserToBusinessStruct()
 	if err!=nil {
 		p.l.Println("Validation error in POST request -> input-register-api Module \n",err)
 		http.Error(w,fmt.Sprintf("Error in data validation : %s",err), http.StatusBadRequest)
@@ -33,10 +33,10 @@ func (p *Input_Register) Register_User (w http.ResponseWriter, r *http.Request){
 	} 
 
 	//add data to mongo
-	response := data.RegisterUserCRUDOPS(registeration)
+	response := data.RegisterUserToBusinessCRUDOPS(registeration)
 
 	//writing to the io.Writer
-	err = response.RegisterPostSuccessToJSON(w)
+	err = response.RegisterToBusinessPostSuccessToJSON(w)
 	if err!=nil {
 		http.Error(w,"Data with ID failed to marshel",http.StatusInternalServerError)		
 	}
