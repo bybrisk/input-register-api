@@ -68,7 +68,7 @@ type registerAUserToBusinessParmsWrapper struct {
 
 // Success message on subscribing to a business
 // swagger:response registerToBusinessPostResponse
-type accountPostResponseWrapper struct {
+type registerAUserToBusinessPostResponseWrapper struct {
 	// Success message on subscribing to a business
 	// in: body
 	Body data.RegisterToBusinessPostSuccess
