@@ -15,7 +15,7 @@ import (
 //  422: errorValidation
 //  501: errorResponse
 
-func (p *Delivery) Register_User (w http.ResponseWriter, r *http.Request){
+func (p *Input_Register) Register_User (w http.ResponseWriter, r *http.Request){
 	p.l.Println("Handle POST request -> input-register-api Module")
 	registeration := &data.RegisterUserStructure{}
 
