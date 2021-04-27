@@ -14,7 +14,7 @@ import (
 //  422: errorValidation
 //  501: errorResponse
 
-func (p *Delivery) GetUserIDByPhone (w http.ResponseWriter, r *http.Request) {
+func (p *Input_Register) GetUserIDByPhone (w http.ResponseWriter, r *http.Request) {
 	p.l.Println("Handle GET request -> user-api Module")
 	
 	vars := mux.Vars(r)
