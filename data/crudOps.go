@@ -16,7 +16,14 @@ func RegisterUserCRUDOPS(d *RegisterUserStructure) *RegisterPostSuccess{
 func RegisterUserToBusinessCRUDOPS (d *RegisterUserToBusinessStruct) *RegisterToBusinessPostSuccess{
 	var response RegisterToBusinessPostSuccess
 
-	isSubscribed := IsSubscribedAlready(d)
+	isSubscribed,isSubscribedErr := IsSubscribedAlready(d)
+	if isSubscribedErr!=nil{
+		response = RegisterToBusinessPostSuccess{
+			BusinessID:d.BusinessID,
+			Message:"Error! User not registered!",
+		}
+		return &response
+	}
 
 	if (isSubscribed==0){
 		nameOfBusiness,BusinessCategory := GetBusinessName(d.BusinessID)
@@ -41,3 +48,34 @@ func RegisterUserToBusinessCRUDOPS (d *RegisterUserToBusinessStruct) *RegisterTo
 
 	return &response
 }
+
+func GetUserIDCRUDOPS(phone string) *RegisterPostSuccess{
+	var response RegisterPostSuccess
+
+	if len(phone)<10 {
+		response = RegisterPostSuccess{
+			UserID:"",
+			Message:"Error! Less than 10 digit number!",
+		}
+	} else if len(phone)>10 {
+		response = RegisterPostSuccess{
+			UserID:"",
+			Message:"Error! More than 10 digit number!",
+		}
+	} else {
+		userID,err := GetUserIDByPhoneMongo(phone)
+		if err!=nil{
+			response = RegisterPostSuccess{
+				UserID:"",
+				Message:err.Error(),
+			} 	
+		} else{
+			response = RegisterPostSuccess{
+				UserID:userID,
+				Message:"Success",
+			} 
+		}
+	}
+	
+	return &response
+}	

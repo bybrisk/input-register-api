@@ -34,7 +34,9 @@ func TestRegisterUserCRUDOPS(t *testing.T) {
 	res:= data.RegisterUserToBusinessCRUDOPS(register) 
 
 	fmt.Println(res)
-	if res==nil{
-		t.Fail()
-	}
 }
+
+/*func TestGetUserIDCRUDOPS(t *testing.T){
+	res:= data.GetUserIDCRUDOPS("9340212623")
+	fmt.Println(res)
+}*/

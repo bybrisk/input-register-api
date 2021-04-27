@@ -77,7 +77,7 @@ func RegisterToBusinessMongo(d *RegisterUserToBusinessStruct,nameOfBusiness stri
 	return updateResult.ModifiedCount
 }
 
-func IsSubscribedAlready(d *RegisterUserToBusinessStruct) int64 {
+func IsSubscribedAlready(d *RegisterUserToBusinessStruct) (int64,error) {
 	collectionName := shashankMongo.DatabaseName.Collection("input-user")
 	id, _ := primitive.ObjectIDFromHex(d.UserID)
 	filter := bson.M{"_id": id}
@@ -95,7 +95,6 @@ func IsSubscribedAlready(d *RegisterUserToBusinessStruct) int64 {
 		log.Error("IsSubscribedAlready ERROR:")
 		log.Error(err)
 	}
-	fmt.Println(document)
 
 	var isSubscribed int64
 	for _,val:=range document.Subscription{
@@ -104,5 +103,24 @@ func IsSubscribedAlready(d *RegisterUserToBusinessStruct) int64 {
 		}
 	}
 	
-	return isSubscribed
+	return isSubscribed,err
+}
+
+func GetUserIDByPhoneMongo(phone string) (string, error) {
+	collectionName := shashankMongo.DatabaseName.Collection("input-user")
+	filter := bson.M{"phonenumber": phone}
+
+	type IdOfDoc struct{
+		ID primitive.ObjectID `bson:"_id"`
+	}
+
+	var document IdOfDoc
+
+	err:= collectionName.FindOne(shashankMongo.CtxForDB, filter).Decode(&document)
+	if err != nil {
+		log.Error("GetUserIDByPhoneMongo ERROR:")
+		log.Error(err)
+	}
+
+	return document.ID.Hex(),err
 }

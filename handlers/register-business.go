@@ -7,7 +7,7 @@ import (
 	"github.com/bybrisk/input-register-api/data"
 )
 
-// swagger:route POST /input/register/business user registerToBusiness
+// swagger:route POST /user/subscribe user registerToBusiness
 // Subscribe a user to a business.
 //
 // responses:
@@ -16,7 +16,7 @@ import (
 //  501: errorResponse
 
 func (p *Input_Register) Subscribe_User (w http.ResponseWriter, r *http.Request){
-	p.l.Println("Handle POST request -> input-register-api Module")
+	p.l.Println("Handle POST request -> user-api Module")
 	registeration := &data.RegisterUserToBusinessStruct{}
 
 	err:=registeration.FromJSONToRegisterUserToBusinessStruct(r.Body)
@@ -27,7 +27,7 @@ func (p *Input_Register) Subscribe_User (w http.ResponseWriter, r *http.Request)
 	//validate the data
 	err = registeration.ValidateRegisterUserToBusinessStruct()
 	if err!=nil {
-		p.l.Println("Validation error in POST request -> input-register-api Module \n",err)
+		p.l.Println("Validation error in POST request -> user-api Module \n",err)
 		http.Error(w,fmt.Sprintf("Error in data validation : %s",err), http.StatusBadRequest)
 		return
 	} 
