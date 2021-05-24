@@ -36,6 +36,8 @@ func (p *Input_Register) Register_User (w http.ResponseWriter, r *http.Request){
 	response := data.RegisterUserCRUDOPS(registeration)
 
 	//writing to the io.Writer
+	w.Header().Set("Content-Type", "application/json")
+	
 	err = response.RegisterPostSuccessToJSON(w)
 	if err!=nil {
 		http.Error(w,"Data with ID failed to marshel",http.StatusInternalServerError)		

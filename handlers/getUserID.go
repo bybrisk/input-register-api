@@ -22,6 +22,8 @@ func (p *Input_Register) GetUserIDByPhone (w http.ResponseWriter, r *http.Reques
 
 	lp := data.GetUserIDCRUDOPS(num)
 
+	w.Header().Set("Content-Type", "application/json")
+	
 	err := lp.RegisterPostSuccessToJSON(w)
 	if err!=nil {
 		http.Error(w,"Data failed to marshel",http.StatusInternalServerError)		
