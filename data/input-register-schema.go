@@ -82,9 +82,14 @@ type RegisterToBusinessPostSuccess struct {
 	//businessID of the business
 	//
 	BusinessID string `json:"businessID"`
+
 	//Message response
 	//
 	Message string `json:"message"`
+
+	//status code
+	//
+	Status int64 `json:"status"`
 }
 
 type IdOfDoc struct{

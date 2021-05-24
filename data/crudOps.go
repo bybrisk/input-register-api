@@ -22,6 +22,7 @@ func RegisterUserToBusinessCRUDOPS (d *RegisterUserToBusinessStruct) *RegisterTo
 		response = RegisterToBusinessPostSuccess{
 			BusinessID:d.BusinessID,
 			Message:"Error! User not registered!",
+			Status:403,
 		}
 		return &response
 	}
@@ -33,17 +34,20 @@ func RegisterUserToBusinessCRUDOPS (d *RegisterUserToBusinessStruct) *RegisterTo
 			response = RegisterToBusinessPostSuccess{
 				BusinessID:d.BusinessID,
 				Message:"Success! User subscribed successfully!",
+				Status:200,
 			}
 		} else{
 			response = RegisterToBusinessPostSuccess{
-				BusinessID:d.BusinessID,
-				Message:"Error! User subscription failed!",
+				BusinessID: d.BusinessID,
+				Message: "Error! User subscription failed!",
+				Status: 501,
 			}
 		}
 	} else{
 		response = RegisterToBusinessPostSuccess{
 			BusinessID:d.BusinessID,
 			Message:"Warning! User already subscribed!",
+			Status: 200,
 		}
 	}
 

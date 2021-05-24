@@ -25,19 +25,19 @@ import (
 	}
 }*/
 
-/*func TestRegisterUserCRUDOPS(t *testing.T) {
+func TestRegisterUserCRUDOPS(t *testing.T) {
 
 	register := &data.RegisterUserToBusinessStruct{
-		BusinessID: "606d6dd51bf7f6ed4a0b320c",
+		BusinessID: "6038bd0fc35e3b8e8bd9f81a",
 		UserID: "6083deb86fcd474489784fee",
 	}
 
 	res:= data.RegisterUserToBusinessCRUDOPS(register) 
 
 	fmt.Println(res)
-}*/
+}
 
-func TestGetUserIDCRUDOPS(t *testing.T){
+/*func TestGetUserIDCRUDOPS(t *testing.T){
 	res:= data.GetUserIDCRUDOPS("9079528682")
 	fmt.Println(res)
-}
+}*/
