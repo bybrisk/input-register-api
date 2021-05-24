@@ -7,7 +7,7 @@ import (
 )
 
 // swagger:route GET /user/{PhoneNumber} user getUserIDByPhone
-// Get userID by 10 digit phone number registered to the account.
+// Get userID or create UserID if not registered.
 //
 // responses:
 //	200: registerPostResponse

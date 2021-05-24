@@ -3,11 +3,12 @@ package data
 func RegisterUserCRUDOPS(d *RegisterUserStructure) *RegisterPostSuccess{
 	var response RegisterPostSuccess
 	
-	id := AddUserToDatabase(d)
+	_,_ = UpdateUserToDatabase(d)
 	
 	response = RegisterPostSuccess{
-		UserID:id,
-		Message:"User registered successfully!",
+		UserID:d.UserID,
+		Message:"Successfully updated user details!",
+		Status:200,
 	}
 
 	return &response
@@ -51,28 +52,45 @@ func RegisterUserToBusinessCRUDOPS (d *RegisterUserToBusinessStruct) *RegisterTo
 
 func GetUserIDCRUDOPS(phone string) *RegisterPostSuccess{
 	var response RegisterPostSuccess
-
+	var emptyString string
+	var emptyData IdOfDoc
 	if len(phone)<10 {
 		response = RegisterPostSuccess{
-			UserID:"",
+			UserID: emptyString,
+			Data: emptyData,
 			Message:"Error! Less than 10 digit number!",
+			Status: 401,
 		}
 	} else if len(phone)>10 {
 		response = RegisterPostSuccess{
-			UserID:"",
+			UserID: emptyString,
+			Data: emptyData,
 			Message:"Error! More than 10 digit number!",
+			Status: 401,
 		}
 	} else {
 		userID,err := GetUserIDByPhoneMongo(phone)
-		if err!=nil{
+		if err != nil {
+
+			//Create new user with phone number
+			payload := &RegisterUserStructure{
+				UserName: emptyString,
+				PhoneNumber: phone,
+			}
+			uid,_ := AddUserToDatabase(payload)
+			
 			response = RegisterPostSuccess{
-				UserID:"",
-				Message:err.Error(),
+				UserID: uid,
+				Data: emptyData,
+				Message:"successfully created new UserID",
+				Status: 200,
 			} 	
 		} else{
 			response = RegisterPostSuccess{
-				UserID:userID,
-				Message:"Success",
+				UserID:userID.ID.Hex(),
+				Data: userID,
+				Message:"Success! Existing user",
+				Status: 200,
 			} 
 		}
 	}

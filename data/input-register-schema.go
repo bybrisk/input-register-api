@@ -2,15 +2,16 @@ package data
 
 import (
 	"github.com/go-playground/validator/v10"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 //post request for registering a user
 type RegisterUserStructure struct{
-	// UserID of the user (system generated. No need to provide)
+	// UserID of the user
 	//
-	// required: false
+	// required: true
 	// max length: 1000
-	UserID string `json: "-"`
+	UserID string `json: "userID" validate:"required"`
 
 	// The full Name of the user
 	//
@@ -66,6 +67,14 @@ type RegisterPostSuccess struct {
 	//Message response
 	//
 	Message string `json:"message"`
+
+	//status code
+	//
+	Status int64 `json:"status"`
+
+	//Data of the user
+	//
+	Data IdOfDoc `json:"data"`
 }
 
 //post response
@@ -76,6 +85,21 @@ type RegisterToBusinessPostSuccess struct {
 	//Message response
 	//
 	Message string `json:"message"`
+}
+
+type IdOfDoc struct{
+	ID primitive.ObjectID `json:"-" bson:"_id"` 
+	Latitude float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+	PhoneNumber string `json:"phonenumber"`
+	UserName string `json:"username"`
+	Subscription []SubscriptionStruct `json:"subscription"`
+}
+
+type SubscriptionStruct struct {
+	BusinessID string `json:"businessid"`
+	BusinessName string `json:"businessname"`
+	BusinessCategory string `json:"businesscategory"`
 }
 
 func (d *RegisterUserStructure) ValidateRegisterUserStructure() error {

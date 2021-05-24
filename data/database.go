@@ -11,7 +11,7 @@ import (
 
 var resultID string
 
-func AddUserToDatabase(d *RegisterUserStructure) string{
+func AddUserToDatabase(d *RegisterUserStructure) (string,error) {
 	collectionName := shashankMongo.DatabaseName.Collection("input-user")
 	result, insertErr := collectionName.InsertOne(shashankMongo.CtxForDB, d)
 	if insertErr != nil {
@@ -24,7 +24,7 @@ func AddUserToDatabase(d *RegisterUserStructure) string{
 		fmt.Println("AddUserToDatabase() newID:", newID)
 		resultID = newID.(primitive.ObjectID).Hex()
 	}
-	return resultID
+	return resultID,insertErr
 }
 
 func GetBusinessName(docID string) (string,string) {
@@ -106,13 +106,9 @@ func IsSubscribedAlready(d *RegisterUserToBusinessStruct) (int64,error) {
 	return isSubscribed,err
 }
 
-func GetUserIDByPhoneMongo(phone string) (string, error) {
+func GetUserIDByPhoneMongo(phone string) (IdOfDoc, error) {
 	collectionName := shashankMongo.DatabaseName.Collection("input-user")
 	filter := bson.M{"phonenumber": phone}
-
-	type IdOfDoc struct{
-		ID primitive.ObjectID `bson:"_id"`
-	}
 
 	var document IdOfDoc
 
@@ -122,5 +118,19 @@ func GetUserIDByPhoneMongo(phone string) (string, error) {
 		log.Error(err)
 	}
 
-	return document.ID.Hex(),err
+	return document,err
+}
+
+func UpdateUserToDatabase(d *RegisterUserStructure) (int64,error) {
+	collectionName := shashankMongo.DatabaseName.Collection("input-user")
+	id, _ := primitive.ObjectIDFromHex(d.UserID)
+	update := bson.M{"$set": bson.M{"userid": d.UserID, "username":d.UserName, "address":d.Address, "latitude":d.Latitude, "longitude":d.Longitude}}
+	filter := bson.M{"_id": id}
+	res,err := collectionName.UpdateOne(shashankMongo.CtxForDB,filter, update)
+	if err!=nil{
+		log.Error("UpdateUserToDatabase ERROR:")
+		log.Error(err)
+		}	
+	
+	return res.ModifiedCount,err
 }

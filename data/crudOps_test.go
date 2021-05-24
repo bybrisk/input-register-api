@@ -9,6 +9,7 @@ import (
 /*func TestRegisterUserCRUDOPS(t *testing.T) {
 
 	register := &data.RegisterUserStructure{
+		UserID: "60ab544b4306be85b5f35fba",
 		UserName: "Shashank Prakash",
 		PhoneNumber: "9340232345",
 		Address: "Maulana Azad National Institute of Technology, Bhopal, MP",
@@ -24,7 +25,7 @@ import (
 	}
 }*/
 
-func TestRegisterUserCRUDOPS(t *testing.T) {
+/*func TestRegisterUserCRUDOPS(t *testing.T) {
 
 	register := &data.RegisterUserToBusinessStruct{
 		BusinessID: "606d6dd51bf7f6ed4a0b320c",
@@ -34,9 +35,9 @@ func TestRegisterUserCRUDOPS(t *testing.T) {
 	res:= data.RegisterUserToBusinessCRUDOPS(register) 
 
 	fmt.Println(res)
-}
-
-/*func TestGetUserIDCRUDOPS(t *testing.T){
-	res:= data.GetUserIDCRUDOPS("9340212623")
-	fmt.Println(res)
 }*/
+
+func TestGetUserIDCRUDOPS(t *testing.T){
+	res:= data.GetUserIDCRUDOPS("9079528682")
+	fmt.Println(res)
+}
