@@ -49,7 +49,24 @@ func GetBusinessName(docID string) (string,string) {
 	return document.BusinessName,document.BusinessCategory
 }
 
-func RegisterToBusinessMongo(d *RegisterUserToBusinessStruct,nameOfBusiness string, businessCategory string) int64 {
+func GetBusinessDetailMongo(docID string) SubscriptionStruct {
+
+	collectionName := shashankMongo.DatabaseName.Collection("businessAccounts")
+	id, _ := primitive.ObjectIDFromHex(docID)
+	filter := bson.M{"_id": id}
+
+	var document SubscriptionStruct
+
+	err:= collectionName.FindOne(shashankMongo.CtxForDB, filter).Decode(&document)
+	if err != nil {
+		log.Error("GetBusinessDetailMongo ERROR:")
+		log.Error(err)
+	}
+
+	return document
+}
+
+func RegisterToBusinessMongo(d *RegisterUserToBusinessStruct, ss SubscriptionStruct) int64 {
 
 	collectionName := shashankMongo.DatabaseName.Collection("input-user")
 	id, _ := primitive.ObjectIDFromHex(d.UserID)
@@ -59,12 +76,22 @@ func RegisterToBusinessMongo(d *RegisterUserToBusinessStruct,nameOfBusiness stri
 		BusinessID string `json:"businessID"`
 		BusinessName string `json:"businessname"`
 		BusinessCategory string `json:"businesscategory"`
+		Picurl string `json:"picurl"`
+		Address string `json:"address"`
+		Email string `json:"email"`
+		Latitude float64 `json:"latitude"`
+		Longitude float64 `json:"longitude"`
 	}
 
 	document := SubscriptionInfo{
 		BusinessID:d.BusinessID,
-		BusinessName:nameOfBusiness,
-		BusinessCategory:businessCategory,
+		BusinessName:ss.BusinessName,
+		BusinessCategory:ss.BusinessCategory,
+		Picurl: ss.Picurl,
+		Address: ss.Address,
+		Email: ss.Email,
+		Latitude: ss.Latitude,
+		Longitude: ss.Longitude,
 	}
 
 	updateResult, err := collectionName.UpdateOne(shashankMongo.CtxForDB, filter, bson.D{{Key: "$push", Value: bson.M{"subscription": document}}})

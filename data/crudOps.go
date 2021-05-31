@@ -16,6 +16,7 @@ func RegisterUserCRUDOPS(d *RegisterUserStructure) *RegisterPostSuccess{
 
 func RegisterUserToBusinessCRUDOPS (d *RegisterUserToBusinessStruct) *RegisterToBusinessPostSuccess{
 	var response RegisterToBusinessPostSuccess
+	var businessDetail SubscriptionStruct
 
 	isSubscribed,isSubscribedErr := IsSubscribedAlready(d)
 	if isSubscribedErr!=nil{
@@ -23,24 +24,30 @@ func RegisterUserToBusinessCRUDOPS (d *RegisterUserToBusinessStruct) *RegisterTo
 			BusinessID:d.BusinessID,
 			Message:"Error! User not registered!",
 			Status:403,
+			Detail: businessDetail,
 		}
 		return &response
 	}
 
+	businessDetail = GetBusinessDetailMongo(d.BusinessID)
+
 	if (isSubscribed==0){
-		nameOfBusiness,BusinessCategory := GetBusinessName(d.BusinessID)
-		if (nameOfBusiness!="" && BusinessCategory!="") {
-			_ = RegisterToBusinessMongo(d,nameOfBusiness,BusinessCategory)
+		subscriptionResp := GetBusinessDetailMongo(d.BusinessID)
+
+		if (subscriptionResp.BusinessName!="" && subscriptionResp.BusinessCategory!="") {
+			_ = RegisterToBusinessMongo(d,subscriptionResp)
 			response = RegisterToBusinessPostSuccess{
 				BusinessID:d.BusinessID,
 				Message:"Success! User subscribed successfully!",
 				Status:200,
+				Detail: businessDetail,
 			}
 		} else{
 			response = RegisterToBusinessPostSuccess{
 				BusinessID: d.BusinessID,
 				Message: "Error! User subscription failed!",
 				Status: 501,
+				Detail: businessDetail,
 			}
 		}
 	} else{
@@ -48,6 +55,7 @@ func RegisterUserToBusinessCRUDOPS (d *RegisterUserToBusinessStruct) *RegisterTo
 			BusinessID:d.BusinessID,
 			Message:"Warning! User already subscribed!",
 			Status: 200,
+			Detail: businessDetail,
 		}
 	}
 

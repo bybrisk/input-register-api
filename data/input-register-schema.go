@@ -90,6 +90,11 @@ type RegisterToBusinessPostSuccess struct {
 	//status code
 	//
 	Status int64 `json:"status"`
+
+	//Business detail object
+	//
+	Detail SubscriptionStruct `json:"detail"`
+
 }
 
 type IdOfDoc struct{
@@ -102,9 +107,38 @@ type IdOfDoc struct{
 }
 
 type SubscriptionStruct struct {
+	//BusinessID of the business
+	//
 	BusinessID string `json:"businessid"`
+	
+	//Name of the business
+	//
 	BusinessName string `json:"businessname"`
+	
+	//Category of the business
+	//
 	BusinessCategory string `json:"businesscategory"`
+
+	//Url of the display profile of the business
+	//
+	Picurl string `json:"picurl"`
+
+	//Address of the business
+	//
+	Address string `json:"address"`
+
+	//Email of the business
+	//
+	Email string `json:"email"`
+
+	//Latitude of the business
+	//
+	Latitude float64 `json:"latitude"`
+
+	//Longitude of the business
+	//
+	Longitude float64 `json:"longitude"`
+
 }
 
 func (d *RegisterUserStructure) ValidateRegisterUserStructure() error {
