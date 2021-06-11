@@ -15,6 +15,8 @@ github.com/bybrisk/input-register-api/data v0.0.0-20210531053022-b8db6f0fd01d h1
 github.com/bybrisk/input-register-api/data v0.0.0-20210531053022-b8db6f0fd01d/go.mod h1:T6fybTnMs8x+ZGunauTiQI66zTiikrTVSsaa7fJrdSY=
 github.com/bybrisk/input-register-api/data v0.0.0-20210611052911-b4d6a3713a77 h1:9LjmXY+AfmyH/mpF/DNutDqIaXK6sSXWYjkq2kHG+tU=
 github.com/bybrisk/input-register-api/data v0.0.0-20210611052911-b4d6a3713a77/go.mod h1:T6fybTnMs8x+ZGunauTiQI66zTiikrTVSsaa7fJrdSY=
+github.com/bybrisk/input-register-api/data v0.0.0-20210611065710-aa12f404f5bf h1:SXjgsx5wYkc4zqD66JXgmcx+jHyidg0wpFg0Et6Me7w=
+github.com/bybrisk/input-register-api/data v0.0.0-20210611065710-aa12f404f5bf/go.mod h1:T6fybTnMs8x+ZGunauTiQI66zTiikrTVSsaa7fJrdSY=
 github.com/bybrisk/structs v0.0.0-20201109044720-899a1e012b8c/go.mod h1:+ozPcEcgRTvbDXzFyBlUTgv1G2niBpEsIzF5tySMIck=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
