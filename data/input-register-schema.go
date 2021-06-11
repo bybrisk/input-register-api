@@ -99,11 +99,29 @@ type RegisterToBusinessPostSuccess struct {
 
 type IdOfDoc struct{
 	ID primitive.ObjectID `json:"-" bson:"_id"` 
+
+	//Registeredlatitude of the user
+	//
 	Latitude float64 `json:"latitude"`
+	
+	//Registered longitude of the user
+	//
 	Longitude float64 `json:"longitude"`
+	
+	//registered phone number of the user
+	//
 	PhoneNumber string `json:"phonenumber"`
+	
+	//Registered name of the user
+	//
 	UserName string `json:"username"`
+	
+	//Registered address if the user
+	//
 	Address string `json:"address"`
+	
+	//Details of the subcription
+	//
 	Subscription []SubscriptionStruct `json:"subscription"`
 }
 
