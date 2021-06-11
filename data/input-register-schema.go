@@ -103,6 +103,7 @@ type IdOfDoc struct{
 	Longitude float64 `json:"longitude"`
 	PhoneNumber string `json:"phonenumber"`
 	UserName string `json:"username"`
+	Address string `json:"address"`
 	Subscription []SubscriptionStruct `json:"subscription"`
 }
 

@@ -37,12 +37,12 @@ import (
 	fmt.Println(res)
 }*/
 
-/*func TestGetUserIDCRUDOPS(t *testing.T){
-	res:= data.GetUserIDCRUDOPS("9079528682")
+func TestGetUserIDCRUDOPS(t *testing.T){
+	res:= data.GetUserIDCRUDOPS("9340232345")
 	fmt.Println(res)
-}*/
+}
 
-func TestRegisterUserToBusinessCRUDOPS(t *testing.T) {
+/*func TestRegisterUserToBusinessCRUDOPS(t *testing.T) {
 	payload := &data.RegisterUserToBusinessStruct{
 		UserID: "6083deb86fcd474489784fee",
 		BusinessID: "6038bd0fc35e3b8e8bd9f81a",
@@ -50,4 +50,4 @@ func TestRegisterUserToBusinessCRUDOPS(t *testing.T) {
 
 	res := data.RegisterUserToBusinessCRUDOPS(payload)
 	fmt.Println(res)
-}
+}*/
