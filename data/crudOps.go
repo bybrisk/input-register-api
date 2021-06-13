@@ -2,13 +2,20 @@ package data
 
 func RegisterUserCRUDOPS(d *RegisterUserStructure) *RegisterPostSuccess{
 	var response RegisterPostSuccess
-	
+    dataLoad := IdOfDoc{
+		Latitude: d.Latitude,
+		Longitude: d.Longitude,
+		PhoneNumber: d.PhoneNumber,
+		UserName: d.UserName,
+		Address: d.Address,
+	}
 	_,_ = UpdateUserToDatabase(d)
 	
 	response = RegisterPostSuccess{
 		UserID:d.UserID,
 		Message:"Successfully updated user details!",
 		Status:200,
+		Data: dataLoad,
 	}
 
 	return &response
